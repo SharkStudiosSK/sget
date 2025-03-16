@@ -1,0 +1,9 @@
+Package: sget
+Version: 0.1.0
+Architecture: amd64
+Maintainer: sget developers <sget@example.org>
+Description: CLI tool to download files from the web
+ sget is a command-line tool that allows you to download
+ files from the web with a nice progress bar display.
+Section: utils
+Priority: optional

@@ -1,0 +1,15 @@
+Package: sget
+Version: 0.1.0
+Architecture: amd64
+Maintainer: sget developers <sget@example.org>
+Filename: pool/main/sget_0.1.0_amd64.deb
+Size: 1372040
+MD5sum: e77cb0e150e55ac7d7253622c6143112
+SHA1: 2c20aaaade8e9cf3f8bf7e03ed94ce91c6c995b7
+SHA256: aabaad7b1ea8353dca0b6e0a5f714adf01e53026e0c7cef861f7cff9b1c2db08
+Section: utils
+Priority: optional
+Description: CLI tool to download files from the web
+ sget is a command-line tool that allows you to download
+ files from the web with a nice progress bar display.
+
