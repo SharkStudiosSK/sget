@@ -30,6 +30,18 @@ jobs:
           rustc --version
           cargo --version
 
+      - name: Remove debian/compat
+        run: |
+          # Check if file exists and remove it
+          if [ -f debian/compat ]; then
+            echo "Removing debian/compat file"
+            rm -f debian/compat
+          else
+            echo "debian/compat does not exist"
+          fi
+          # Double check it's gone
+          ls -la debian/
+          
       - name: Build Debian Package
         run: |
           # Clean version extraction (remove non-numeric/dot characters after extracting)
@@ -44,9 +56,6 @@ jobs:
           TODAY=$(date -R)
           sed -i "s/0.1.0/$VERSION/g" debian/changelog
           sed -i "s/Wed, 01 May 2024 12:00:00 +0000/$TODAY/g" debian/changelog
-          
-          # Remove debian/compat if it exists - debhelper-compat in control is sufficient
-          rm -f debian/compat
           
           # Build package with -d flag to ignore build dependencies (they're already installed)
           debuild -us -uc -d
