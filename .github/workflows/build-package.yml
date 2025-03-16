@@ -1,0 +1,53 @@
+name: Build and Publish Debian Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential debhelper devscripts dpkg-dev lintian
+
+      - name: Build Debian Package
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+          sed -i "s/0.1.0/$VERSION/g" Cargo.toml
+          sed -i "s/0.1.0/$VERSION/g" debian/changelog
+          debuild -us -uc
+          mkdir -p artifacts
+          mv ../sget_*.deb artifacts/
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/sget_*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        uses: cloudsmith-io/action-cloudsmith-upload-packages@v1
+        with:
+          api-key: ${{ secrets.GITHUB_TOKEN }}
+          files: artifacts/sget_*.deb
+          repository: ${{ github.repository_owner }}/sget
+          package-format: deb

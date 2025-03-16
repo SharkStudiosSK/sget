@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with cargo
+
+override_dh_auto_build:
+	dh_auto_build -- --release
+
+override_dh_auto_install:
+	dh_auto_install
+	install -D -m 0755 target/release/sget $(CURDIR)/debian/sget/usr/bin/sget
+
+override_dh_auto_test:
+	# Skip tests during package building

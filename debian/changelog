@@ -1,0 +1,5 @@
+sget (0.1.0) unstable; urgency=medium
+
+  * Initial release
+
+ -- sget developers <sget@example.org>  $(date -R)

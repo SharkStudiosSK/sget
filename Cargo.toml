@@ -1,0 +1,18 @@
+[package]
+name = "sget"
+version = "0.1.0"
+edition = "2021"
+authors = ["sget developers"]
+description = "A CLI tool to download files from the web with a nice progress display"
+license = "MIT"
+
+[dependencies]
+clap = { version = "4.3", features = ["derive"] }
+reqwest = { version = "0.11", features = ["stream", "blocking", "json"] }
+tokio = { version = "1", features = ["full"] }
+indicatif = "0.17"
+futures-util = "0.3"
+anyhow = "1.0"
+url = "2.3"
+humansize = "2.1"
+chrono = "0.4"
