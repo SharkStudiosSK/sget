@@ -4,5 +4,5 @@
 
 src/main.rs:
 
-# env-dep:CARGO_PKG_AUTHORS=Your Name <your.email@example.com>
+# env-dep:CARGO_PKG_AUTHORS=sget developers
 # env-dep:CARGO_PKG_VERSION=0.1.0

@@ -2,34 +2,33 @@
 
 A CLI tool to download files from the web with a nice progress display.
 
-## Installation from GitHub Packages
+## Installation
 
-### Add the repository
+### From GitHub Releases
 
-```bash
-# Create a file for the repository configuration
-echo "deb [trusted=yes] https://$(whoami):${GITHUB_TOKEN}@maven.pkg.github.com/yourusername/sget /" | sudo tee /etc/apt/sources.list.d/yourusername-sget.list
-
-# Update package lists
-sudo apt update
-```
-
-### Install the package
-
-```bash
-sudo apt install sget
-```
-
-## Manual Installation
-
-If you prefer to install manually:
-
-1. Download the latest .deb package from the [Releases](https://github.com/yourusername/sget/releases) page
-2. Install with:
-   ```
+1. Go to the [Releases](https://github.com/yourusername/sget/releases) page
+2. Download the latest `.deb` package
+3. Install it with:
+   ```bash
    sudo dpkg -i sget_*.deb
    sudo apt-get install -f  # Install any missing dependencies
    ```
+
+### From Source
+
+If you prefer to build from source:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/sget.git
+cd sget
+
+# Build with cargo
+cargo build --release
+
+# The binary will be in target/release/sget
+sudo cp target/release/sget /usr/local/bin/
+```
 
 ## Usage
 

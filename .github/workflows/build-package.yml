@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read
+      contents: write  # Need write permission for releases
 
     steps:
       - name: Checkout code
@@ -41,13 +41,13 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: artifacts/sget_*.deb
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to GitHub Packages
-        uses: cloudsmith-io/action-cloudsmith-upload-packages@v1
+      # Upload as artifact as well for easier access
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
-          api-key: ${{ secrets.GITHUB_TOKEN }}
-          files: artifacts/sget_*.deb
-          repository: ${{ github.repository_owner }}/sget
-          package-format: deb
+          name: deb-package
+          path: artifacts/sget_*.deb
